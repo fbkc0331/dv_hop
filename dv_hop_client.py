@@ -17,7 +17,6 @@ import socket
 import subprocess
 import glob
 import multiprocessing
-import queue
 
 # global variables
 reset_point = 0
