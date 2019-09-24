@@ -60,25 +60,17 @@ def get_ble_data(sock, q):
 
 # function : send data form "host_ID%scanned_Rpi" to server
 def send_ble_data_to_server(q, host_ID):
-    sock_data = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-    # wait for socket connect
-    while 1:
-        if sock_data.connect_ex((SERVER,PORT)) != 0:
-            break
-
     # send data to server
     while 1:
         if q.empty() is False:
             ble_raw_data = q.get()
             for ble_data in ble_raw_data:
                 mac_address, udid, major, minor, tx_power, rssi = ble_data.split(',')   # get mac_address and rssi
-                if int(rssi) > RSSI_THRESHOLD:
-                    Rpi = addr_confirm(mac_address)                                     # find device number of scanned device
-                    if Rpi is not False:
-                        send_data = str(host_ID) + '%' + str(Rpi)                     # make data form "host_ID%scanned_Rpi"
-                        sock_data.send(send_data.encode())
-
+                Rpi = addr_confirm(mac_address)                                     # find device number of scanned device
+                if Rpi is not False:
+                    str1 = Rpi + ',' + mac_address + ',' + rssi
+                    print(str1)
+                        
 
 
 ##############################################################################################
