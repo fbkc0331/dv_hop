@@ -21,7 +21,7 @@ import queue
 
 # global variables
 reset_point = 0
-SERVER = "192.168.0.2"      # server address
+SERVER = "192.168.0.129"      # server address
 PORT = 8585                 # port number
 RSSI_THRESHOLD = -70
 
@@ -59,26 +59,30 @@ def get_ble_data(sock, q):
         q.put(returnedList)
 
 # function : send data form "host_ID%scanned_Rpi" to server
-def send_ble_data_to_server(q, host_ID):
-    sock_data = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+def send_ble_data_to_server(q, host_ID):  
+    
+""" sock_data = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     # wait for socket connect
     while 1:
         if sock_data.connect_ex((SERVER,PORT)) != 0:
             break
-
+"""
     # send data to server
     while 1:
         if q.empty() is False:
             ble_raw_data = q.get()
             for ble_data in ble_raw_data:
                 mac_address, udid, major, minor, tx_power, rssi = ble_data.split(',')   # get mac_address and rssi
+                Rpi = addr_confirm(mac_address)
+                print(Rpi mac_address rssi)
+                """
                 if int(rssi) > RSSI_THRESHOLD:
                     Rpi = addr_confirm(mac_address)                                     # find device number of scanned device
                     if Rpi is not False:
                         send_data = str(host_ID) + '%' + str(Rpi)                     # make data form "host_ID%scanned_Rpi"
                         sock_data.send(send_data.encode())
-
+                """
 ##############################################################################################
 def restart(): #이 함수는 오픈소스를 활용하여 만들었습니다. 수정하지 말것은 표시해놓겠습니다.
 # 코드를 다시 실행하고 싶으면 실행하는 것을 추천
