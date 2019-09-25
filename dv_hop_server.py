@@ -80,13 +80,16 @@ if __name__=="__main__":
     print("server init finished")
 
     q=multiprocessing.Queue()
+    print("Queue finished")
 
     p1 = multiprocessing.Process(target=data_receive,args=(q,))
     p2 = multiprocessing.Process(target=put_data,args=(q,input_raw_data))
 
 
     p1.start()
+    print("Process1")
     p2.start()
+    print("Process2")
 
 
     p1.join()
