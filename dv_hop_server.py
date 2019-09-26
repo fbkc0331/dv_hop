@@ -85,7 +85,7 @@ def put_link_info(q, sh_link_info_mat):                     # sh_ means it is on
         if q.empty() is False:
             ble_data = q.get()                              #
             from_ID, to_ID, rssi = ble_data.split(',')      # ble data is 7,11,-74 means Rpi_ID 7 found Rpi_ID 11 with rssi == -74
-            sh_link_info_mat.array[from_ID][to_ID] = 1      # so put this information to shared memory
+            sh_link_info_mat.array[int(from_ID)][int(to_ID)] = 1      # so put this information to shared memory
 
             print(sh_link_info_mat.array)
 
