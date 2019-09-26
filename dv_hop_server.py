@@ -136,7 +136,7 @@ if __name__=="__main__":
 
     q = multiprocessing.Queue()
     print("Queue finished")
-    sh_link_info_mat = sn.SharedNDarray((NUM_RPI, NUM_RPI))
+    sh_link_info_mat = sn.SharedNDArray((NUM_RPI, NUM_RPI))
 
     p1 = multiprocessing.Process(target = recv_data_multi_thread, args = (server_socket, q))
     p2 = multiprocessing.Process(target = put_link_info, args=(q, sh_link_info_mat))
